@@ -1,5 +1,6 @@
 package org.example;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,4 +23,7 @@ class BasePorto {
         barcosAtracados.remove(barco);
         System.out.println(barco.nome + "desatracado do " + nome);
     }
+=======
+public class BasePorto {
+>>>>>>> 8657a38594cff5a7a6ca7a4b6743358d5bba5649
 }

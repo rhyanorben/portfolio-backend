@@ -1,5 +1,6 @@
 package org.example;
 
+<<<<<<< HEAD
 class PortoPequeno extends BasePorto {
 
     public PortoPequeno(String nome){
@@ -15,4 +16,7 @@ class PortoPequeno extends BasePorto {
             return false;
         }
     }
+=======
+public class PortoPequeno {
+>>>>>>> 8657a38594cff5a7a6ca7a4b6743358d5bba5649
 }
