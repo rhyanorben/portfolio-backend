@@ -31,4 +31,5 @@ public class Fixture {
     public void setGoals(Goals goals) {
         this.goals = goals;
     }
+
 }
