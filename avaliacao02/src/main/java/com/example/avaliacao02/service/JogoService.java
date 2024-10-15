@@ -49,10 +49,12 @@ public class JogoService {
             List<Jogo> jogos = new ArrayList<>();
             for (Fixture fixture: apiResponse.getResponse()) {
                 Jogo jogo = new Jogo(
+                        fixture.getFixture().getDate(),
                         fixture.getTeams().getHome().getName(),
                         fixture.getTeams().getAway().getName(),
                         fixture.getGoals().getHome(),
-                        fixture.getGoals().getAway()
+                        fixture.getGoals().getAway(),
+                        fixture.getFixture().getStatus().getLongStatus()
                 );
                 jogos.add(jogo);
             }
