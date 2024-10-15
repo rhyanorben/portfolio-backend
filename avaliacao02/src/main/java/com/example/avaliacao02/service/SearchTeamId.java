@@ -37,11 +37,16 @@ public class SearchTeamId {
 
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode root = objectMapper.readTree(response.getBody());
-            int idTime = root.path("response").get(0).path("teams").path("id").asInt();
 
-            return idTime;
+            if (root.path("response").size() > 0) {
+                int idTime = root.path("response").get(0).path("team").path("id").asInt();
+                return idTime;
+            } else {
+                logger.error("Nenhum time encontrado com o nome: {}", nomeTime);
+                return -1; // Retorne -1 ou lance uma exceção personalizada
+            }
         } catch (Exception e) {
-            logger.error("Erro ao buscar ID do time, {}", e);
+            logger.error("Erro ao buscar ID do time: {}", e);
             return -1;
         }
 

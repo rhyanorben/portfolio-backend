@@ -31,17 +31,23 @@ public class SearchLeagueId {
         RestTemplate restTemplate = new RestTemplate();
 
         try{
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-        logger.info("Resposta recebida da API: {}", response.getBody());
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode root = objectMapper.readTree(response.getBody());
-        int idLiga = root.path("response").get(0).path("league").path("id").asInt();
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            logger.info("Resposta recebida da API: {}", response.getBody());
 
-        return idLiga;
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode root = objectMapper.readTree(response.getBody());
 
+
+            if (root.path("response").size() > 0) {
+                int idLiga = root.path("response").get(0).path("league").path("id").asInt();
+                return idLiga;
+            } else {
+                logger.error("Nenhum time encontrado com o nome: {}", nomeLiga);
+                return -1; // Retorne -1 ou lance uma exceção personalizada
+            }
         } catch (Exception e) {
-            logger.error("Erro ao buscar id da liga", e);
+            logger.error("Erro ao buscar ID do time: {}", e);
             return -1;
         }
     }

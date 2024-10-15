@@ -40,7 +40,7 @@ public class SearchService {
             baseUrl += "&league=" + idLiga;
         }
 
-        if (!nomeTime.isEmpty() && nomeLiga != null) {
+        if (!nomeTime.isEmpty() && nomeTime != null) {
             int idTime = searchTeamId.searchTeamId(nomeTime);
             baseUrl += "&team=" + idTime;
         }

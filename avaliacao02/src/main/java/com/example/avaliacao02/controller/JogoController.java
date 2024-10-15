@@ -1,11 +1,5 @@
 package com.example.avaliacao02.controller;
 
-/*/jogos
-	/andamento - GET
-	/{id_jogo} - GET
-	/favoritos - GET/POST
-		/remover - POST*/
-
 import com.example.avaliacao02.model.Game;
 import com.example.avaliacao02.GameIdService.GameIdService;
 import org.springframework.beans.factory.annotation.Autowired;
