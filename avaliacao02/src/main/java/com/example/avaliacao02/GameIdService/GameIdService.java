@@ -1,8 +1,9 @@
-package com.example.avaliacao02.service;
+package com.example.avaliacao02.GameIdService;
 
-import com.example.avaliacao02.model.Fixture;
-import com.example.avaliacao02.model.Jogo;
+import com.example.avaliacao02.model.Game;
 
+import com.example.avaliacao02.service.ApiResponse;
+import com.example.avaliacao02.service.Fixture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,13 +19,13 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class JogoService {
+public class GameIdService {
 
-    private static final Logger logger = LoggerFactory.getLogger(JogoService.class);
+    private static final Logger logger = LoggerFactory.getLogger(GameIdService.class);
     private final String apiUrl = "https://v3.football.api-sports.io";
     private final String apiKey = "c48e7f3cdbd90e65d6ad8b89cb2d1d9b";
 
-    public List<Jogo> buscarDetalhesJogo(int id_jogo){
+    public List<Game> buscarDetalhesJogo(int id_jogo){
         logger.info("Iniciando busca por detalhes do jogo com ID: {}", id_jogo);
         RestTemplate restTemplate = new RestTemplate();
 
@@ -46,9 +47,9 @@ public class JogoService {
             apiResponse = objectMapper.readValue(response.getBody(), ApiResponse.class);
             logger.info("Resposta da API processada corretamente: {}", apiResponse.getResponse());
 
-            List<Jogo> jogos = new ArrayList<>();
+            List<Game> jogos = new ArrayList<>();
             for (Fixture fixture: apiResponse.getResponse()) {
-                Jogo jogo = new Jogo(
+                Game jogo = new Game(
                         fixture.getFixture().getDate(),
                         fixture.getTeams().getHome().getName(),
                         fixture.getTeams().getAway().getName(),
