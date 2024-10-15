@@ -9,7 +9,7 @@ public class AboutController {
 
     @GetMapping("/sobre")
     public Estudante getEstudante(){
-        Estudante estudante = new Estudante("Rhyan Willemann Orben", "Buscador de jogos");
+        Estudante estudante = new Estudante("Rhyan Willemann Orben", "Placar de jogos");
         return estudante;
     }
 

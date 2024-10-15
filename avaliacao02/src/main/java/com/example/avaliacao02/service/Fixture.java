@@ -1,5 +1,8 @@
-package com.example.avaliacao02.model;
+package com.example.avaliacao02.service;
 
+import com.example.avaliacao02.model.FixtureDetails;
+import com.example.avaliacao02.model.Goals;
+import com.example.avaliacao02.model.Team;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

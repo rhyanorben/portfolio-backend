@@ -1,6 +1,5 @@
 package com.example.avaliacao02.service;
 
-import com.example.avaliacao02.model.Fixture;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
