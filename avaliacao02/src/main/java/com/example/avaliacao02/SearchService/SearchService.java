@@ -1,43 +1,58 @@
-package com.example.avaliacao02.GameIdService;
+package com.example.avaliacao02.SearchService;
 
+import com.example.avaliacao02.GameIdService.GameIdService;
 import com.example.avaliacao02.model.Game;
-
 import com.example.avaliacao02.service.ApiResponse;
 import com.example.avaliacao02.service.Fixture;
+import com.example.avaliacao02.service.SearchLeagueId;
+import com.example.avaliacao02.service.SearchTeamId;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.http.HttpHeaders;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Service
-public class GameIdService {
+public class SearchService {
 
     private static final Logger logger = LoggerFactory.getLogger(GameIdService.class);
-    private final String apiUrl = "https://v3.football.api-sports.io";
-    private final String apiKey = "c48e7f3cdbd90e65d6ad8b89cb2d1d9b";
+    private final SearchLeagueId searchLeagueId;
+    private final SearchTeamId searchTeamId;
 
-    public List<Game> buscarDetalhesJogo(int id_jogo){
-        logger.info("Iniciando busca por detalhes do jogo com ID: {}", id_jogo);
+    public SearchService(SearchLeagueId searchLeagueId, SearchTeamId searchTeamId) {
+        this.searchLeagueId = searchLeagueId;
+        this.searchTeamId = searchTeamId;
+    }
 
-        String url = apiUrl + "/fixtures?id=" + id_jogo;
+    public List<Game> buscarPartidas(String nomeLiga, String nomeTime) {
+        String baseUrl = "https://v3.football.api-sports.io/fixtures?live=all";
+
+        if (!nomeLiga.isEmpty() && nomeLiga != null) {
+            int idLiga = searchLeagueId.searchLeagueId(nomeLiga);
+            baseUrl += "&league=" + idLiga;
+        }
+
+        if (!nomeTime.isEmpty() && nomeLiga != null) {
+            int idTime = searchTeamId.searchTeamId(nomeTime);
+            baseUrl += "&team=" + idTime;
+        }
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("x-rapidapi-key", apiKey);
+        headers.set("x-rapidapi-key", "c48e7f3cdbd90e65d6ad8b89cb2d1d9b");
         headers.set("x-rapidapi-host", "v3.football.api-sports.io");
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(baseUrl, HttpMethod.GET, entity, String.class);
         logger.info("Resposta recebida da API: {}", response.getBody());
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -48,7 +63,7 @@ public class GameIdService {
             logger.info("Resposta da API processada corretamente: {}", apiResponse.getResponse());
 
             List<Game> jogos = new ArrayList<>();
-            for (Fixture fixture: apiResponse.getResponse()) {
+            for (Fixture fixture : apiResponse.getResponse()) {
                 Game jogo = new Game(
                         fixture.getFixture().getDate(),
                         fixture.getTeams().getHome().getName(),
@@ -60,7 +75,7 @@ public class GameIdService {
                 jogos.add(jogo);
             }
 
-        return jogos;
+            return jogos;
 
         } catch (Exception e) {
             logger.error("Erro ao buscar os detalhes do jogo: ", e);
@@ -68,4 +83,3 @@ public class GameIdService {
         }
     }
 }
-
