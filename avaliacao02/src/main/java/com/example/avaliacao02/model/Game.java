@@ -5,14 +5,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Game {
     private String data;
+    private String liga;
+    private int minutes;
     private String time_casa;
     private String time_fora;
     private int gols_casa;
     private int gols_fora;
     private String status;
 
-    public Game(String data, String time_casa, String time_fora, int gols_casa, int gols_fora, String status){
+    public Game(String data, String liga, int minutes, String time_casa, String time_fora, int gols_casa, int gols_fora, String status){
         this.data = data;
+        this.liga = liga;
+        this.minutes = minutes;
         this.time_casa = time_casa;
         this.time_fora = time_fora;
         this.gols_casa = gols_casa;
@@ -26,6 +30,22 @@ public class Game {
 
     public void setData(String data){
         this.data = data;
+    }
+
+    public String getLiga() {
+        return liga;
+    }
+
+    public void setLiga(String liga){
+        this.liga = liga;
+    }
+
+    public int getMinutes(){
+        return minutes;
+    }
+
+    public void setMinutes(int minutes){
+        this.minutes = minutes;
     }
 
     public String getTime_casa() {

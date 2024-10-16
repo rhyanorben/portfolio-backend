@@ -1,11 +1,7 @@
-package com.example.avaliacao02.SearchService;
+package com.example.avaliacao02.service;
 
-import com.example.avaliacao02.GameIdService.GameIdService;
 import com.example.avaliacao02.model.Game;
-import com.example.avaliacao02.service.ApiResponse;
-import com.example.avaliacao02.service.Fixture;
-import com.example.avaliacao02.service.SearchLeagueId;
-import com.example.avaliacao02.service.SearchTeamId;
+import com.example.avaliacao02.model.TeamDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,16 +52,18 @@ public class SearchService {
         logger.info("Resposta recebida da API: {}", response.getBody());
 
         ObjectMapper objectMapper = new ObjectMapper();
-        ApiResponse apiResponse = null;
+        TeamDetails.ApiResponse apiResponse = null;
 
         try {
-            apiResponse = objectMapper.readValue(response.getBody(), ApiResponse.class);
+            apiResponse = objectMapper.readValue(response.getBody(), TeamDetails.ApiResponse.class);
             logger.info("Resposta da API processada corretamente: {}", apiResponse.getResponse());
 
             List<Game> jogos = new ArrayList<>();
-            for (Fixture fixture : apiResponse.getResponse()) {
+            for (TeamDetails.Fixture fixture : apiResponse.getResponse()) {
                 Game jogo = new Game(
                         fixture.getFixture().getDate(),
+                        fixture.getLeague().getName(),
+                        fixture.getFixture().getStatus().getElapsed(),
                         fixture.getTeams().getHome().getName(),
                         fixture.getTeams().getAway().getName(),
                         fixture.getGoals().getHome(),
