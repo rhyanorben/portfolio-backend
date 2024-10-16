@@ -1,11 +1,9 @@
-package com.example.avaliacao02.model;
+package com.example.avaliacao02.models.About;
 
 
 public class Estudante {
     private String nome = "Rhyan Willemann Orben";
     private String trabalho = "Pesquisa de Jogos";
-
-    public Estudante(){}
 
     public Estudante(String nome, String trabalho) {
         this.nome = nome;

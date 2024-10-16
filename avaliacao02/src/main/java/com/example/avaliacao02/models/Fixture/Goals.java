@@ -1,4 +1,4 @@
-package com.example.avaliacao02.model;
+package com.example.avaliacao02.models.Fixture;
 
 public class Goals {
     private int away;

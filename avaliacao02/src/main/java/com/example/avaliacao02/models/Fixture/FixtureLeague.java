@@ -1,9 +1,9 @@
-package com.example.avaliacao02.model;
+package com.example.avaliacao02.models.Fixture;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class League {
+public class FixtureLeague {
     private int id;
     private String name;
     private String country;

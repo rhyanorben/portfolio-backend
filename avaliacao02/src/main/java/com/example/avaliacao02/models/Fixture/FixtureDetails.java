@@ -1,7 +1,6 @@
-package com.example.avaliacao02.model;
+package com.example.avaliacao02.models.Fixture;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FixtureDetails {

@@ -1,10 +1,9 @@
 package com.example.avaliacao02.service;
 
-import com.example.avaliacao02.model.ApiResponse;
-import com.example.avaliacao02.model.Fixture;
-import com.example.avaliacao02.model.Game;
+import com.example.avaliacao02.models.Fixture.ApiResponseFixture;
+import com.example.avaliacao02.models.Fixture.Fixture;
+import com.example.avaliacao02.models.Fixture.GameEntity;
 
-import com.example.avaliacao02.model.TeamDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,13 +19,13 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class GameIdService {
+public class Game4IdService {
 
-    private static final Logger logger = LoggerFactory.getLogger(GameIdService.class);
+    private static final Logger logger = LoggerFactory.getLogger(Game4IdService.class);
     private final String apiUrl = "https://v3.football.api-sports.io";
     private final String apiKey = "c48e7f3cdbd90e65d6ad8b89cb2d1d9b";
 
-    public List<Game> buscarDetalhesJogo(int id_jogo){
+    public List<GameEntity> buscarDetalhesJogo(int id_jogo){
         logger.info("Iniciando busca por detalhes do jogo com ID: {}", id_jogo);
 
         String url = apiUrl + "/fixtures?id=" + id_jogo;
@@ -42,20 +41,20 @@ public class GameIdService {
         logger.info("Resposta recebida da API: {}", response.getBody());
 
         ObjectMapper objectMapper = new ObjectMapper();
-        ApiResponse apiResponse = null;
+        ApiResponseFixture apiResponse = null;
 
         try {
-            apiResponse = objectMapper.readValue(response.getBody(), ApiResponse.class);
+            apiResponse = objectMapper.readValue(response.getBody(), ApiResponseFixture.class);
             logger.info("Resposta da API processada corretamente: {}", apiResponse.getResponse());
 
-            List<Game> jogos = new ArrayList<>();
+            List<GameEntity> jogos = new ArrayList<>();
             for (Fixture fixture: apiResponse.getResponse()) {
-                Game jogo = new Game(
+                GameEntity jogo = new GameEntity(
                         fixture.getFixture().getDate(),
                         fixture.getLeague().getName(),
                         fixture.getFixture().getStatus().getElapsed(),
-                        fixture.getTeams().getHome().getName(),
-                        fixture.getTeams().getAway().getName(),
+                        fixture.getFixtureTeams().getHome().getName(),
+                        fixture.getFixtureTeams().getAway().getName(),
                         fixture.getGoals().getHome(),
                         fixture.getGoals().getAway(),
                         fixture.getFixture().getStatus().getLongStatus()

@@ -1,19 +1,20 @@
-package com.example.avaliacao02.model;
+package com.example.avaliacao02.models.Team;
 
+import com.example.avaliacao02.models.Fixture.FixtureTeams;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ApiResponse {
-    private List<Fixture> response;
+public class ApiResponseTeam {
+    private List<Team> response;
     private int results;
 
-    public List<Fixture> getResponse() {
+    public List<Team> getResponse() {
         return response;
     }
 
-    public void setResponse(List<Fixture> response) {
+    public void setResponse(List<Team> response) {
         this.response = response;
     }
 
@@ -24,4 +25,6 @@ public class ApiResponse {
     public void setResults(int results) {
         this.results = results;
     }
+
+
 }
