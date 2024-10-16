@@ -1,5 +1,7 @@
 package com.example.avaliacao02.service;
 
+import com.example.avaliacao02.model.ApiResponse;
+import com.example.avaliacao02.model.Fixture;
 import com.example.avaliacao02.model.Game;
 
 import com.example.avaliacao02.model.TeamDetails;
@@ -40,14 +42,14 @@ public class GameIdService {
         logger.info("Resposta recebida da API: {}", response.getBody());
 
         ObjectMapper objectMapper = new ObjectMapper();
-        TeamDetails.ApiResponse apiResponse = null;
+        ApiResponse apiResponse = null;
 
         try {
-            apiResponse = objectMapper.readValue(response.getBody(), TeamDetails.ApiResponse.class);
+            apiResponse = objectMapper.readValue(response.getBody(), ApiResponse.class);
             logger.info("Resposta da API processada corretamente: {}", apiResponse.getResponse());
 
             List<Game> jogos = new ArrayList<>();
-            for (TeamDetails.Fixture fixture: apiResponse.getResponse()) {
+            for (Fixture fixture: apiResponse.getResponse()) {
                 Game jogo = new Game(
                         fixture.getFixture().getDate(),
                         fixture.getLeague().getName(),

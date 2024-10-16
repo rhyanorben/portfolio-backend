@@ -17,10 +17,10 @@ public class GamesOngoingController {
 
     @GetMapping("/partidas/andamento")
     public List<Game> getPartidasEmAndamento(
-        @RequestParam(value = "liga", required = false) String liga,
-        @RequestParam(value = "time", required = false) String time
+        @RequestParam(value = "idLiga", required = false, defaultValue = "0") int idLiga,
+        @RequestParam(value = "idTime", required = false, defaultValue = "0") int idTime
     ){
-        return searchService.buscarPartidas(liga != null ? liga: "", time != null ? time: "");
+        return searchService.buscarPartidas(idLiga, idTime);
     }
 
 }

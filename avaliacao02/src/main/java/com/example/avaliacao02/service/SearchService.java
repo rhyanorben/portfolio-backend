@@ -1,7 +1,8 @@
 package com.example.avaliacao02.service;
 
+import com.example.avaliacao02.model.ApiResponse;
+import com.example.avaliacao02.model.Fixture;
 import com.example.avaliacao02.model.Game;
-import com.example.avaliacao02.model.TeamDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,47 +20,39 @@ import java.util.List;
 @Service
 public class SearchService {
 
-    private static final Logger logger = LoggerFactory.getLogger(GameIdService.class);
-    private final SearchLeagueId searchLeagueId;
-    private final SearchTeamId searchTeamId;
+    private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
 
-    public SearchService(SearchLeagueId searchLeagueId, SearchTeamId searchTeamId) {
-        this.searchLeagueId = searchLeagueId;
-        this.searchTeamId = searchTeamId;
-    }
-
-    public List<Game> buscarPartidas(String nomeLiga, String nomeTime) {
+    public List<Game> buscarPartidas(int idLiga, int idTime) {
         String baseUrl = "https://v3.football.api-sports.io/fixtures?live=all";
 
-        if (!nomeLiga.isEmpty() && nomeLiga != null) {
-            int idLiga = searchLeagueId.searchLeagueId(nomeLiga);
+        if(idLiga != 0){
             baseUrl += "&league=" + idLiga;
         }
 
-        if (!nomeTime.isEmpty() && nomeTime != null) {
-            int idTime = searchTeamId.searchTeamId(nomeTime);
-            baseUrl += "&team=" + idTime;
+        if(idTime != 0){
+           baseUrl += "&team=" + idTime;
         }
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("x-rapidapi-key", "c48e7f3cdbd90e65d6ad8b89cb2d1d9b");
         headers.set("x-rapidapi-host", "v3.football.api-sports.io");
 
-        HttpEntity<String> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
 
         ResponseEntity<String> response = restTemplate.exchange(baseUrl, HttpMethod.GET, entity, String.class);
         logger.info("Resposta recebida da API: {}", response.getBody());
 
         ObjectMapper objectMapper = new ObjectMapper();
-        TeamDetails.ApiResponse apiResponse = null;
+        ApiResponse apiResponse = null;
 
         try {
-            apiResponse = objectMapper.readValue(response.getBody(), TeamDetails.ApiResponse.class);
+            apiResponse = objectMapper.readValue(response.getBody(), ApiResponse.class);
             logger.info("Resposta da API processada corretamente: {}", apiResponse.getResponse());
 
             List<Game> jogos = new ArrayList<>();
-            for (TeamDetails.Fixture fixture : apiResponse.getResponse()) {
+            for (Fixture fixture : apiResponse.getResponse()) {
                 Game jogo = new Game(
                         fixture.getFixture().getDate(),
                         fixture.getLeague().getName(),
