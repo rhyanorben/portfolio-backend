@@ -50,6 +50,7 @@ public class Game4IdService {
             List<GameEntity> jogos = new ArrayList<>();
             for (Fixture fixture: apiResponse.getResponse()) {
                 GameEntity jogo = new GameEntity(
+                        fixture.getFixture().getId(),
                         fixture.getFixture().getDate(),
                         fixture.getLeague().getName(),
                         fixture.getFixture().getStatus().getElapsed(),
