@@ -6,6 +6,7 @@ import com.example.avaliacao02.models.Fixture.GameEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -22,15 +23,20 @@ public class GameSearchService {
 
     private static final Logger logger = LoggerFactory.getLogger(GameSearchService.class);
 
+    private List<GameEntity> jogosFavoritos = new ArrayList<>();
+
+    @Autowired
+    private Game4IdService searchId;
+
     public List<GameEntity> buscarPartidas(int idLiga, int idTime) {
         String baseUrl = "https://v3.football.api-sports.io/fixtures?live=all";
 
-        if(idLiga != 0){
+        if (idLiga != 0) {
             baseUrl += "&league=" + idLiga;
         }
 
-        if(idTime != 0){
-           baseUrl += "&team=" + idTime;
+        if (idTime != 0) {
+            baseUrl += "&team=" + idTime;
         }
 
         HttpHeaders headers = new HttpHeaders();
@@ -54,6 +60,7 @@ public class GameSearchService {
             List<GameEntity> jogos = new ArrayList<>();
             for (Fixture fixture : apiResponse.getResponse()) {
                 GameEntity jogo = new GameEntity(
+                        fixture.getFixture().getId(),
                         fixture.getFixture().getDate(),
                         fixture.getLeague().getName(),
                         fixture.getFixture().getStatus().getElapsed(),
@@ -73,4 +80,32 @@ public class GameSearchService {
             return Collections.emptyList();
         }
     }
+
+
+    public boolean marcarFavorito(int id, boolean favorito) {
+
+        List<GameEntity> partidas = searchId.buscarDetalhesJogo(id);
+
+        if (!partidas.isEmpty()) {
+            GameEntity partida = partidas.get(0);
+
+            if (favorito) {
+                if (!jogosFavoritos.contains(partida)) {
+                    partida.setFavorita(true);
+                    jogosFavoritos.add(partida);
+                }
+            } else {
+                if (jogosFavoritos.contains(partida)) {
+                    partida.setFavorita(false);
+                    jogosFavoritos.remove(partida);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+        public List<GameEntity> buscarPartidasFavoritas () {
+            return new ArrayList<>(jogosFavoritos);
+        }
 }

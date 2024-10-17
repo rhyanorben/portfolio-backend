@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GameEntity {
+    private int id;
     private String data;
     private String liga;
     private int minutes;
@@ -12,8 +13,10 @@ public class GameEntity {
     private int gols_casa;
     private int gols_fora;
     private String status;
+    private boolean favorita;
 
-    public GameEntity(String data, String liga, int minutes, String time_casa, String time_fora, int gols_casa, int gols_fora, String status){
+    public GameEntity(int id, String data, String liga, int minutes, String time_casa, String time_fora, int gols_casa, int gols_fora, String status){
+        this.id = id;
         this.data = data;
         this.liga = liga;
         this.minutes = minutes;
@@ -22,6 +25,15 @@ public class GameEntity {
         this.gols_casa = gols_casa;
         this.gols_fora = gols_fora;
         this.status = status;
+        this.favorita = false;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getData(){
@@ -87,4 +99,11 @@ public class GameEntity {
     public void setStatus(String status){
         this.status = status;
     }
+
+    public boolean isFavorita() { return favorita; }
+
+    public void setFavorita(boolean favorita) {
+        this.favorita = favorita;
+    }
+
 }
