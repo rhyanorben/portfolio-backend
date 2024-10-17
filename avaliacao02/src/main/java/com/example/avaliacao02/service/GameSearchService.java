@@ -108,4 +108,5 @@ public class GameSearchService {
         public List<GameEntity> buscarPartidasFavoritas () {
             return new ArrayList<>(jogosFavoritos);
         }
+
 }
