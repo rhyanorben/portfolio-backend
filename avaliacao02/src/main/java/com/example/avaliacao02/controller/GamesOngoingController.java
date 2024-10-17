@@ -1,7 +1,7 @@
 package com.example.avaliacao02.controller;
 
-import com.example.avaliacao02.service.SearchService;
-import com.example.avaliacao02.model.Game;
+import com.example.avaliacao02.service.GameSearchService;
+import com.example.avaliacao02.models.Fixture.GameEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,10 +13,10 @@ import java.util.List;
 public class GamesOngoingController {
 
     @Autowired
-    private SearchService searchService;
+    private GameSearchService searchService;
 
     @GetMapping("/partidas/andamento")
-    public List<Game> getPartidasEmAndamento(
+    public List<GameEntity> getPartidasEmAndamento(
         @RequestParam(value = "idLiga", required = false, defaultValue = "0") int idLiga,
         @RequestParam(value = "idTime", required = false, defaultValue = "0") int idTime
     ){

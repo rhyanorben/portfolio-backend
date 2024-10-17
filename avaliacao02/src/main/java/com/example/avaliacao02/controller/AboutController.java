@@ -1,6 +1,6 @@
 package com.example.avaliacao02.controller;
 
-import com.example.avaliacao02.model.Estudante;
+import com.example.avaliacao02.models.About.Estudante;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

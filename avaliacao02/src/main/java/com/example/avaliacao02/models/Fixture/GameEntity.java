@@ -1,9 +1,9 @@
-package com.example.avaliacao02.model;
+package com.example.avaliacao02.models.Fixture;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Game {
+public class GameEntity {
     private String data;
     private String liga;
     private int minutes;
@@ -13,7 +13,7 @@ public class Game {
     private int gols_fora;
     private String status;
 
-    public Game(String data, String liga, int minutes, String time_casa, String time_fora, int gols_casa, int gols_fora, String status){
+    public GameEntity(String data, String liga, int minutes, String time_casa, String time_fora, int gols_casa, int gols_fora, String status){
         this.data = data;
         this.liga = liga;
         this.minutes = minutes;

@@ -1,13 +1,15 @@
-package com.example.avaliacao02.model;
+package com.example.avaliacao02.models.Fixture;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Fixture {
     private FixtureDetails fixture;
-    private Team teams;
+    @JsonProperty("teams")
+    private FixtureTeams teams;
     private Goals goals;
-    private League league;
+    private FixtureLeague league;
 
     public FixtureDetails getFixture() {
         return fixture;
@@ -17,11 +19,11 @@ public class Fixture {
         this.fixture = fixture;
     }
 
-    public Team getTeams() {
+    public FixtureTeams getFixtureTeams() {
         return teams;
     }
 
-    public void setTeams(Team teams) {
+    public void setFixtureTeams(FixtureTeams teams) {
         this.teams = teams;
     }
 
@@ -33,8 +35,8 @@ public class Fixture {
         this.goals = goals;
     }
 
-    public League getLeague() { return league; }
+    public FixtureLeague getLeague() { return league; }
 
-    public void setLeague(League league) { this.league = league; }
+    public void setLeague(FixtureLeague league) { this.league = league; }
 
 }
