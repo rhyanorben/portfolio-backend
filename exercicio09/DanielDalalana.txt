@@ -1,0 +1,3 @@
+Daniel Dalalana não falou técnicamente sobre métodos de segurança em si, mas frisou a importância do desenvolvimento com consciência independente do "tamanho" da aplicação ou empresa.
+
+Além disso comentou a importância de realizar um serviço/consultoria de segurança tendo a proximidade com o cliente e passando a visão de um "médico" que esá consultando os problemas/doenças da aplicação do cliente.
