@@ -3,7 +3,6 @@ package com.example.demo_turma04.controller;
 import com.example.demo_turma04.dtos.ErroDto;
 import com.example.demo_turma04.dtos.JogadorRequestDto;
 import com.example.demo_turma04.dtos.JogadorResponseDto;
-import com.example.demo_turma04.models.JogadorEntity;
 import com.example.demo_turma04.services.JogadorService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
